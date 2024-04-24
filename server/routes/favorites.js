@@ -1,41 +1,35 @@
 const express = require('express');
 const router = express.Router();
-// const Pokemon = require('../server/models/pokemon.js');
+const Favorites = require('../models/Favorites');
 
 // Get all favorites
 router.get('/', async (req, res) => {
-    try {
-        const favorites = await Pokemon.find();
-        res.json(favorites);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
+  try {
+    const favorites = await Favorites.find();
+    res.json({ favorites });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
-// Add a favorite
+// Create a new favorite
 router.post('/', async (req, res) => {
-    const pokemon = new Pokemon({
-        name: req.body.name,
-        type: req.body.type,
-        imageUrl: req.body.imageUrl,
-    });
+  const favorite = new Favorites({
+    name: req.body.name,
+    image: req.body.image,
+    // Add any other fields you need
+  });
 
-    try {
-        const newPokemon = await pokemon.save();
-        res.status(201).json(newPokemon);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
-    }
+  try {
+    const newFavorite = await favorite.save();
+    res.status(201).json(newFavorite);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
 });
+
+// Update a favorite
 
 // Delete a favorite
-router.delete('/:id', async (req, res) => {
-    try {
-        await Pokemon.findByIdAndRemove(req.params.id);
-        res.json({ message: 'Favorite deleted' });
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-});
 
 module.exports = router;
