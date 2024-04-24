@@ -16,7 +16,7 @@ const Favorite = () => {
   const fetchFavorites = async () => {
     try {
       // Fetch favorites list
-      const res = await axios.get("http://localhost:3000/favorites");
+      const res = await axios.get("https://perscholascapstoneproject.onrender.com/favorites");
       // Set to state
       setFavorites(res.data.favorites);
     } catch (error) {
@@ -28,7 +28,7 @@ const Favorite = () => {
   const deleteFavorite = async (id) => {
     try {
       // Delete the fav
-      await axios.delete(`http://localhost:3000/favorites/${id}`);
+      await axios.delete(`https://perscholascapstoneproject.onrender.com/favorites${id}`);
       // Update state
       setFavorites(favorites.filter(favorite => favorite._id !== id));
     } catch (error) {
