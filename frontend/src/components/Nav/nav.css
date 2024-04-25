@@ -1,25 +1,33 @@
-.Nav {
-    flex: 1;
-  }
-  
-  .Nav ul {
-    height: 100%;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-  }
-  
-  .Nav ul li {
-    list-style: none;
-  }
-  
-  .Nav ul li a {
-    text-decoration: none;
-    cursor: pointer;
-    font-size: 20px;
-  }
-  
-  .Nav ul li a:hover {
-    color: #3498db;
-  }
-  
+.navbar {
+  background-color: #fff;
+  overflow: hidden;
+  display: flex;
+}
+
+.navbar img {
+  width: 100px;
+  height: auto;
+  overflow: hidden;
+  justify-content: end;
+
+}
+
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.navbar li {
+  float: left;
+  justify-content: center;
+}
+
+.navbar li a {
+  display: block;
+  color: rgb(3, 3, 3);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}

@@ -1,35 +1,19 @@
 const express = require('express');
 const router = express.Router();
 const Favorites = require('../model/Favorites');
+const favoritesController = require('../controller/favoritesController');
 
 // Get all favorites
-router.get('/', async (req, res) => {
-  try {
-    const favorites = await Favorites.find();
-    res.json({ favorites });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
+router.get('/', favoritesController.getAllFavorites);
 
 // Create a new favorite
-router.post('/', async (req, res) => {
-  const favorite = new Favorites({
-    name: req.body.name,
-    image: req.body.image,
-    // Add any other fields you need
-  });
+router.post('/', favoritesController.addFavorite);
 
-  try {
-    const newFavorite = await favorite.save();
-    res.status(201).json(newFavorite);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-});
-
-// Update a favorite
+// Update favorites order
+router.post('/reorder', favoritesController.updateFavoritesOrder);
 
 // Delete a favorite
+router.delete('/:id', favoritesController.deleteFavorite);
+
 
 module.exports = router;

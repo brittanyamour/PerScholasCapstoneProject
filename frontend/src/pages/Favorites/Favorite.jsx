@@ -28,7 +28,7 @@ const Favorite = () => {
   const deleteFavorite = async (id) => {
     try {
       // Delete the fav
-      await axios.delete(`https://perscholascapstoneproject.onrender.com/favorites${id}`);
+      await axios.delete(`https://perscholascapstoneproject.onrender.com/favorites/${id}`);
       // Update state
       setFavorites(favorites.filter(favorite => favorite._id !== id));
     } catch (error) {

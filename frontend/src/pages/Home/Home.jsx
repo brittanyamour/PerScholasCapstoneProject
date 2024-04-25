@@ -40,6 +40,15 @@ export default function Home() {
             }
         };
 
+        const fetchFavorites = async () => {
+            try {
+                const response = await axios.get("https://perscholascapstoneproject.onrender.com/favorites");
+                setFavorites(response.data.favorites);
+            } catch (error) {
+                console.error('Error fetching favorites:', error);
+            }
+        };
+
         const getPokemon = async (name) => {
             try {
                 const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
@@ -63,6 +72,7 @@ export default function Home() {
         };
 
         fetchPokemon();
+        fetchFavorites();
     }, []);
 
     const handleTypeChange = (event) => {
@@ -76,12 +86,12 @@ export default function Home() {
         return p.name.toLowerCase().includes(searchText.toLowerCase()) && p.type === selectedType;
     });
 
-    const addToFavorites = (pokemon) => {
-        if (!favorites.find(favorite => favorite.id === pokemon.id)) {
-            setFavorites(prevFavorites => [
-                ...prevFavorites,
-                pokemon
-            ]);
+    const addToFavorites = async (pokemon) => {
+        try {
+            const response = await axios.post("https://perscholascapstoneproject.onrender.com/favorites", pokemon);
+            setFavorites([...favorites, response.data]);
+        } catch (error) {
+            console.error('Error adding to favorites:', error);
         }
     };
 
@@ -125,7 +135,7 @@ export default function Home() {
                             <h3 className="name">{p.name}</h3>
                             <small className="type">Type <span>{p.type}</span></small>
                             <button onClick={() => addToFavorites(p)}>
-                                <Fa6Icons.FaRegHeart />
+                                {favorites.find(fav => fav.id === p.id)?.id ? <Fa6Icons.FaHeart /> : <Fa6Icons.FaRegHeart />}
                             </button>
                         </div>
                     </div>
